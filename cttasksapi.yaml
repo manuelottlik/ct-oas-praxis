@@ -5,7 +5,7 @@ info:
   license:
     name: MIT
 servers:
- - url: "http://localhost/tasks/" 
+  - url: "http://server/cttaskapi/"
 paths:
   /tasks:
     get:
@@ -14,10 +14,10 @@ paths:
       tags:
         - tasks
       responses:
-        '200':
+        "200":
           description: An array of tasks
           content:
-            application/json:    
+            application/json:
               schema:
                 $ref: "#/components/schemas/Tasks"
     post:
@@ -25,9 +25,19 @@ paths:
       operationId: createTask
       tags:
         - tasks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskWrite"
       responses:
-        '201':
+        "201":
           description: Null response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
   /tasks/{taskId}:
     get:
       summary: Info for a specific Task
@@ -42,7 +52,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Expected response to a valid request
           content:
             application/json:
@@ -60,8 +70,13 @@ paths:
           description: id of the task to update
           schema:
             type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskWrite"
       responses:
-        '201':
+        "201":
           description: Expected response to a valid request
           content:
             application/json:
@@ -80,33 +95,33 @@ paths:
           schema:
             type: string
       responses:
-        '204':
+        "204":
           description: expected response to a valid request
 
-  
 components:
   schemas:
     Task:
       type: object
       required:
-        - name
-        - bookable
-        - floor_id
-        - category_id
+        - id
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+        - $ref: "#/components/schemas/TaskWrite"
+    TaskWrite:
+      type: object
+      required:
+        - text
+        - done
       properties:
-        id:
-          type: integer
-          format: int64
-        name:
+        text:
           type: string
           minLength: 2
           maxLength: 255
-        bookable:
+        done:
           type: boolean
-        floor_id:
-          type: integer
-        category_id:
-          type: integer
     Tasks:
       type: array
       items:
