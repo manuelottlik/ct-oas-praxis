@@ -22,33 +22,33 @@
  * Notes: 
 
  */
-Route::post('/tasks/tasks', 'TasksController@createTask');
+Route::post('/cttaskapi/tasks', 'TasksController@createTask');
 /**
  * get getTasks
  * Summary: Get all tasks
  * Notes: 
  * Output-Formats: [application/json]
  */
-Route::get('/tasks/tasks', 'TasksController@getTasks');
+Route::get('/cttaskapi/tasks', 'TasksController@getTasks');
 /**
  * delete deleteTask
  * Summary: delete a task
  * Notes: 
 
  */
-Route::delete('/tasks/tasks/{taskId}', 'TasksController@deleteTask');
+Route::delete('/cttaskapi/tasks/{taskId}', 'TasksController@deleteTask');
 /**
  * get getTaskById
  * Summary: Info for a specific Task
  * Notes: 
  * Output-Formats: [application/json]
  */
-Route::get('/tasks/tasks/{taskId}', 'TasksController@getTaskById');
+Route::get('/cttaskapi/tasks/{taskId}', 'TasksController@getTaskById');
 /**
  * put updateTask
  * Summary: update a specific task
  * Notes: 
  * Output-Formats: [application/json]
  */
-Route::put('/tasks/tasks/{taskId}', 'TasksController@updateTask');
+Route::put('/cttaskapi/tasks/{taskId}', 'TasksController@updateTask');
 

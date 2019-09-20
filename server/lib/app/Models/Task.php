@@ -4,24 +4,23 @@
  */
 namespace app\Models;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * Task
  */
-class Task {
+class Task extends Model
+{
 
     /** @var int $id */
     private $id;
 
-    /** @var string $name */
-    private $name;
+    /** @var string $text */
+    private $text;
 
-    /** @var bool $bookable */
-    private $bookable;
+    /** @var bool $done */
+    private $done;
 
-    /** @var int $floorId */
-    private $floorId;
-
-    /** @var int $categoryId */
-    private $categoryId;
+    protected $fillable = ['text', 'done'];
 
 }
