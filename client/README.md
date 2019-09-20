@@ -65,9 +65,11 @@ $apiInstance = new OpenAPI\Client\Api\TasksApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
+$task_write = new \OpenAPI\Client\Model\TaskWrite(); // \OpenAPI\Client\Model\TaskWrite | 
 
 try {
-    $apiInstance->createTask();
+    $result = $apiInstance->createTask($task_write);
+    print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling TasksApi->createTask: ', $e->getMessage(), PHP_EOL;
 }
@@ -77,7 +79,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost/tasks*
+All URIs are relative to *http://server/cttaskapi*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -92,6 +94,8 @@ Class | Method | HTTP request | Description
 
  - [Error](docs/Model/Error.md)
  - [Task](docs/Model/Task.md)
+ - [TaskAllOf](docs/Model/TaskAllOf.md)
+ - [TaskWrite](docs/Model/TaskWrite.md)
 
 
 ## Documentation For Authorization

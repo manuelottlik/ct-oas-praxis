@@ -120,14 +120,16 @@ class TasksApi
      *
      * Create a task
      *
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write task_write (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return void
+     * @return \OpenAPI\Client\Model\Task
      */
-    public function createTask()
+    public function createTask($task_write)
     {
-        $this->createTaskWithHttpInfo();
+        list($response) = $this->createTaskWithHttpInfo($task_write);
+        return $response;
     }
 
     /**
@@ -135,14 +137,15 @@ class TasksApi
      *
      * Create a task
      *
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write (required)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
-     * @return array of null, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \OpenAPI\Client\Model\Task, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createTaskWithHttpInfo()
+    public function createTaskWithHttpInfo($task_write)
     {
-        $request = $this->createTaskRequest();
+        $request = $this->createTaskRequest($task_write);
 
         try {
             $options = $this->createHttpClientOption();
@@ -172,10 +175,46 @@ class TasksApi
                 );
             }
 
-            return [null, $statusCode, $response->getHeaders()];
+            $responseBody = $response->getBody();
+            switch($statusCode) {
+                case 201:
+                    if ('\OpenAPI\Client\Model\Task' === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, '\OpenAPI\Client\Model\Task', []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+            }
+
+            $returnType = '\OpenAPI\Client\Model\Task';
+            $responseBody = $response->getBody();
+            if ($returnType === '\SplFileObject') {
+                $content = $responseBody; //stream goes to serializer
+            } else {
+                $content = $responseBody->getContents();
+            }
+
+            return [
+                ObjectSerializer::deserialize($content, $returnType, []),
+                $response->getStatusCode(),
+                $response->getHeaders()
+            ];
 
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\OpenAPI\Client\Model\Task',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    break;
             }
             throw $e;
         }
@@ -186,13 +225,14 @@ class TasksApi
      *
      * Create a task
      *
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createTaskAsync()
+    public function createTaskAsync($task_write)
     {
-        return $this->createTaskAsyncWithHttpInfo()
+        return $this->createTaskAsyncWithHttpInfo($task_write)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -205,20 +245,32 @@ class TasksApi
      *
      * Create a task
      *
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createTaskAsyncWithHttpInfo()
+    public function createTaskAsyncWithHttpInfo($task_write)
     {
-        $returnType = '';
-        $request = $this->createTaskRequest();
+        $returnType = '\OpenAPI\Client\Model\Task';
+        $request = $this->createTaskRequest($task_write);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
             ->then(
                 function ($response) use ($returnType) {
-                    return [null, $response->getStatusCode(), $response->getHeaders()];
+                    $responseBody = $response->getBody();
+                    if ($returnType === '\SplFileObject') {
+                        $content = $responseBody; //stream goes to serializer
+                    } else {
+                        $content = $responseBody->getContents();
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
                 },
                 function ($exception) {
                     $response = $exception->getResponse();
@@ -240,12 +292,19 @@ class TasksApi
     /**
      * Create request for operation 'createTask'
      *
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write (required)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function createTaskRequest()
+    protected function createTaskRequest($task_write)
     {
+        // verify the required parameter 'task_write' is set
+        if ($task_write === null || (is_array($task_write) && count($task_write) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $task_write when calling createTask'
+            );
+        }
 
         $resourcePath = '/tasks';
         $formParams = [];
@@ -258,15 +317,18 @@ class TasksApi
 
         // body params
         $_tempBody = null;
+        if (isset($task_write)) {
+            $_tempBody = $task_write;
+        }
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
-                []
+                ['application/json']
             );
         } else {
             $headers = $this->headerSelector->selectHeaders(
-                [],
-                []
+                ['application/json'],
+                ['application/json']
             );
         }
 
@@ -1075,14 +1137,15 @@ class TasksApi
      * update a specific task
      *
      * @param  string $task_id id of the task to update (required)
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write task_write (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return \OpenAPI\Client\Model\Task
      */
-    public function updateTask($task_id)
+    public function updateTask($task_id, $task_write = null)
     {
-        list($response) = $this->updateTaskWithHttpInfo($task_id);
+        list($response) = $this->updateTaskWithHttpInfo($task_id, $task_write);
         return $response;
     }
 
@@ -1092,14 +1155,15 @@ class TasksApi
      * update a specific task
      *
      * @param  string $task_id id of the task to update (required)
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write (optional)
      *
      * @throws \OpenAPI\Client\ApiException on non-2xx response
      * @throws \InvalidArgumentException
      * @return array of \OpenAPI\Client\Model\Task, HTTP status code, HTTP response headers (array of strings)
      */
-    public function updateTaskWithHttpInfo($task_id)
+    public function updateTaskWithHttpInfo($task_id, $task_write = null)
     {
-        $request = $this->updateTaskRequest($task_id);
+        $request = $this->updateTaskRequest($task_id, $task_write);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1180,13 +1244,14 @@ class TasksApi
      * update a specific task
      *
      * @param  string $task_id id of the task to update (required)
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateTaskAsync($task_id)
+    public function updateTaskAsync($task_id, $task_write = null)
     {
-        return $this->updateTaskAsyncWithHttpInfo($task_id)
+        return $this->updateTaskAsyncWithHttpInfo($task_id, $task_write)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1200,14 +1265,15 @@ class TasksApi
      * update a specific task
      *
      * @param  string $task_id id of the task to update (required)
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function updateTaskAsyncWithHttpInfo($task_id)
+    public function updateTaskAsyncWithHttpInfo($task_id, $task_write = null)
     {
         $returnType = '\OpenAPI\Client\Model\Task';
-        $request = $this->updateTaskRequest($task_id);
+        $request = $this->updateTaskRequest($task_id, $task_write);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1247,11 +1313,12 @@ class TasksApi
      * Create request for operation 'updateTask'
      *
      * @param  string $task_id id of the task to update (required)
+     * @param  \OpenAPI\Client\Model\TaskWrite $task_write (optional)
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function updateTaskRequest($task_id)
+    protected function updateTaskRequest($task_id, $task_write = null)
     {
         // verify the required parameter 'task_id' is set
         if ($task_id === null || (is_array($task_id) && count($task_id) === 0)) {
@@ -1279,6 +1346,9 @@ class TasksApi
 
         // body params
         $_tempBody = null;
+        if (isset($task_write)) {
+            $_tempBody = $task_write;
+        }
 
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(
@@ -1287,7 +1357,7 @@ class TasksApi
         } else {
             $headers = $this->headerSelector->selectHeaders(
                 ['application/json'],
-                []
+                ['application/json']
             );
         }
 

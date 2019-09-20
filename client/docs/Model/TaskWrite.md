@@ -1,10 +1,9 @@
-# # Task
+# # TaskWrite
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | 
 **text** | **string** |  | 
 **done** | **bool** |  | 
 

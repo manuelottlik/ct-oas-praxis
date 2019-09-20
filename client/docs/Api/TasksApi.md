@@ -1,6 +1,6 @@
 # OpenAPI\Client\TasksApi
 
-All URIs are relative to *http://localhost/tasks*
+All URIs are relative to *http://server/cttaskapi*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## createTask
 
-> createTask()
+> \OpenAPI\Client\Model\Task createTask($task_write)
 
 Create a task
 
@@ -30,9 +30,11 @@ $apiInstance = new OpenAPI\Client\Api\TasksApi(
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client()
 );
+$task_write = new \OpenAPI\Client\Model\TaskWrite(); // \OpenAPI\Client\Model\TaskWrite | 
 
 try {
-    $apiInstance->createTask();
+    $result = $apiInstance->createTask($task_write);
+    print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling TasksApi->createTask: ', $e->getMessage(), PHP_EOL;
 }
@@ -41,11 +43,14 @@ try {
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **task_write** | [**\OpenAPI\Client\Model\TaskWrite**](../Model/TaskWrite.md)|  |
 
 ### Return type
 
-void (empty response body)
+[**\OpenAPI\Client\Model\Task**](../Model/Task.md)
 
 ### Authorization
 
@@ -53,8 +58,8 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../../README.md#documentation-for-models)
@@ -220,7 +225,7 @@ No authorization required
 
 ## updateTask
 
-> \OpenAPI\Client\Model\Task updateTask($task_id)
+> \OpenAPI\Client\Model\Task updateTask($task_id, $task_write)
 
 update a specific task
 
@@ -237,9 +242,10 @@ $apiInstance = new OpenAPI\Client\Api\TasksApi(
     new GuzzleHttp\Client()
 );
 $task_id = 'task_id_example'; // string | id of the task to update
+$task_write = new \OpenAPI\Client\Model\TaskWrite(); // \OpenAPI\Client\Model\TaskWrite | 
 
 try {
-    $result = $apiInstance->updateTask($task_id);
+    $result = $apiInstance->updateTask($task_id, $task_write);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling TasksApi->updateTask: ', $e->getMessage(), PHP_EOL;
@@ -253,6 +259,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **task_id** | **string**| id of the task to update |
+ **task_write** | [**\OpenAPI\Client\Model\TaskWrite**](../Model/TaskWrite.md)|  | [optional]
 
 ### Return type
 
@@ -264,7 +271,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints)

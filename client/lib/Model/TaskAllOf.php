@@ -1,6 +1,6 @@
 <?php
 /**
- * Task
+ * TaskAllOf
  *
  * PHP version 5
  *
@@ -33,14 +33,14 @@ use \ArrayAccess;
 use \OpenAPI\Client\ObjectSerializer;
 
 /**
- * Task Class Doc Comment
+ * TaskAllOf Class Doc Comment
  *
  * @category Class
  * @package  OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  */
-class Task implements ModelInterface, ArrayAccess
+class TaskAllOf implements ModelInterface, ArrayAccess
 {
     const DISCRIMINATOR = null;
 
@@ -49,7 +49,7 @@ class Task implements ModelInterface, ArrayAccess
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Task';
+    protected static $openAPIModelName = 'Task_allOf';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,9 +57,7 @@ class Task implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'int',
-        'text' => 'string',
-        'done' => 'bool'
+        'id' => 'int'
     ];
 
     /**
@@ -68,9 +66,7 @@ class Task implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $openAPIFormats = [
-        'id' => null,
-        'text' => null,
-        'done' => null
+        'id' => null
     ];
 
     /**
@@ -100,9 +96,7 @@ class Task implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'text' => 'text',
-        'done' => 'done'
+        'id' => 'id'
     ];
 
     /**
@@ -111,9 +105,7 @@ class Task implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'text' => 'setText',
-        'done' => 'setDone'
+        'id' => 'setId'
     ];
 
     /**
@@ -122,9 +114,7 @@ class Task implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'text' => 'getText',
-        'done' => 'getDone'
+        'id' => 'getId'
     ];
 
     /**
@@ -188,8 +178,6 @@ class Task implements ModelInterface, ArrayAccess
     public function __construct(array $data = null)
     {
         $this->container['id'] = isset($data['id']) ? $data['id'] : null;
-        $this->container['text'] = isset($data['text']) ? $data['text'] : null;
-        $this->container['done'] = isset($data['done']) ? $data['done'] : null;
     }
 
     /**
@@ -201,23 +189,6 @@ class Task implements ModelInterface, ArrayAccess
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['text'] === null) {
-            $invalidProperties[] = "'text' can't be null";
-        }
-        if ((mb_strlen($this->container['text']) > 255)) {
-            $invalidProperties[] = "invalid value for 'text', the character length must be smaller than or equal to 255.";
-        }
-
-        if ((mb_strlen($this->container['text']) < 2)) {
-            $invalidProperties[] = "invalid value for 'text', the character length must be bigger than or equal to 2.";
-        }
-
-        if ($this->container['done'] === null) {
-            $invalidProperties[] = "'done' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -236,7 +207,7 @@ class Task implements ModelInterface, ArrayAccess
     /**
      * Gets id
      *
-     * @return int
+     * @return int|null
      */
     public function getId()
     {
@@ -246,68 +217,13 @@ class Task implements ModelInterface, ArrayAccess
     /**
      * Sets id
      *
-     * @param int $id id
+     * @param int|null $id id
      *
      * @return $this
      */
     public function setId($id)
     {
         $this->container['id'] = $id;
-
-        return $this;
-    }
-
-    /**
-     * Gets text
-     *
-     * @return string
-     */
-    public function getText()
-    {
-        return $this->container['text'];
-    }
-
-    /**
-     * Sets text
-     *
-     * @param string $text text
-     *
-     * @return $this
-     */
-    public function setText($text)
-    {
-        if ((mb_strlen($text) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $text when calling Task., must be smaller than or equal to 255.');
-        }
-        if ((mb_strlen($text) < 2)) {
-            throw new \InvalidArgumentException('invalid length for $text when calling Task., must be bigger than or equal to 2.');
-        }
-
-        $this->container['text'] = $text;
-
-        return $this;
-    }
-
-    /**
-     * Gets done
-     *
-     * @return bool
-     */
-    public function getDone()
-    {
-        return $this->container['done'];
-    }
-
-    /**
-     * Sets done
-     *
-     * @param bool $done done
-     *
-     * @return $this
-     */
-    public function setDone($done)
-    {
-        $this->container['done'] = $done;
 
         return $this;
     }
