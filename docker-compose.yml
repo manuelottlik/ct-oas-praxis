@@ -1,16 +1,30 @@
 version: "3"
 services:
   server:
-    image: php:apache
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: oas-praxis/server
+    container_name: server
+    restart: always
+    tty: true
     volumes:
-      - ./server:/var/www/html
+      - ./server/lib:/var/www/html
+      - /var/www/html/vendor/
     ports:
-      - 5001:80
+      - 8001:80
   client:
-    image: php:apache
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: oas-praxis/client
+    container_name: client
+    restart: always
+    tty: true
     volumes:
       - ./client:/var/www/html
+      - /var/www/html/vendor/
     ports:
-      - 5000:80
+      - 8000:80
     depends_on:
       - server
