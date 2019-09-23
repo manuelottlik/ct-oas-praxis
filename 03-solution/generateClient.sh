@@ -1,0 +1,2 @@
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/cttasksapi.yaml -g php -o /local/client
+docker run --rm openapitools/openapi-generator-cli generate -i ${PWD}/cttasksapi.yaml -g php -o ${PWD}/client
