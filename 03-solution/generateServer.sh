@@ -1,2 +1,1 @@
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/cttasksapi.yaml -g php-laravel -o /local/server
-docker run --rm openapitools/openapi-generator-cli generate -i ${PWD}/cttasksapi.yaml -g php-laravel -o ${PWD}/server
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/cttaskapi.yaml -g php-laravel -o /local/server
