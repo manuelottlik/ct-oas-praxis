@@ -5,7 +5,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     image: oas-praxis/server
-    container_name: server
+    container_name: 03-solution-server
     restart: always
     tty: true
     volumes:
@@ -18,7 +18,7 @@ services:
       context: ./client
       dockerfile: Dockerfile
     image: oas-praxis/client
-    container_name: client
+    container_name: 03-solution-client
     restart: always
     tty: true
     volumes:
