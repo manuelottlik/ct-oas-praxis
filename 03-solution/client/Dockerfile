@@ -29,8 +29,3 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 WORKDIR /var/www/html
 
 RUN composer install
-
-#COPY startup.sh /usr/local/bin/startup.sh
-#RUN chmod +x /usr/local/bin/startup.sh
-
-#CMD ["/usr/local/bin/startup.sh"]
