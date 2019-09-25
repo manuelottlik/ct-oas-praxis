@@ -1,0 +1,16 @@
+version: "3"
+services:
+  server:
+    image: php:apache
+    volumes:
+      - ./server:/var/www/html
+    ports:
+      - 8001:80
+  client:
+    image: php:apache
+    volumes:
+      - ./client:/var/www/html
+    ports:
+      - 8000:80
+    depends_on:
+      - server
