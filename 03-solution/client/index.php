@@ -1,3 +1,18 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<style>
+main {
+    width: 500px;
+    margin: auto;
+}
+h2 {
+    margin: 1.5em;
+    text-align: center;
+}
+
+.table td {
+    vertical-align: middle
+}
+</style>
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -28,9 +43,9 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage(), PHP_EOL;
 }
-echo "<center><h2>c't Task Frontend</h2>";
+echo "<main><h2>c't Task Frontend</h2>";
 if (count($tasks)) {
-    echo "<table>";
+    echo "<table class='table table table-striped'>";
     foreach ($tasks as $task) {
         echo "<tr><td>";
 
@@ -40,33 +55,44 @@ if (count($tasks)) {
 
         echo $task->getText();
         if ($task->getDone()) {
-            echo "</strike>";
-        }
-        echo "</td><td>
+            echo "</strike></td><td>";
+
+        } else {
+            echo "</td><td>
         <form action='index.php' method='post'>
             <input type='hidden' name='action' value='update' />
             <input type='hidden' name='id' value='" . $task->getId() . "'/>
-            <input type='submit' value='erledigen'>
+            <input class='btn btn-secondary' type='submit' value='erledigen'>
         </form>";
+
+        }
 
         echo "</td><td>
         <form action='index.php' method='post'>
             <input type='hidden' name='action' value='delete' />
             <input type='hidden' name='id' value='" . $task->getId() . "'/>
-            <input type='submit' value='löschen'>
+            <input type='submit' class='btn btn-danger' value='löschen'>
         </form>";
         echo "</td></tr>";
     }
     echo "</table>";
 } else {
-    echo "es existieren noch keine Aufgaben";
+    echo "<div class='alert alert-primary'>Es existieren noch keine Aufgaben!</div>";
 }
 
 echo "
+
         <form action='index.php' method='post'>
             <input type='hidden' name='action' value='create' />
-            <input type='text' name='text' placeholder='neue Aufgabe'/>
-            <input type='submit' value='erstellen'>
-        </form>";
+            <div class='form-row' style='width: 100%;'>
+                <div class='col'>
+                    <input type='text' class='form-control' name='text' placeholder='neue Aufgabe'/>
+                </div>
+                <div class='col-auto'>
+                    <input type='submit' class='btn btn-primary' value='erstellen'>
+                </div>
+            </div>
+        </form>
+        ";
 
-echo "</center>";
+echo "</main>";
