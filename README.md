@@ -1,2 +1,2 @@
 # ct-oas-praxis
-Beispielprojekt zum Artikel XY
+Beispielprojekt zum Artikel "Guck mal Mama, ohne Hände!".
