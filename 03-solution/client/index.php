@@ -21,7 +21,7 @@ $apiInstance = new OpenAPI\Client\Api\TasksApi();
 try {
 
     if ($_POST['action'] == "create") {
-        $newTask = new OpenAPI\Client\Model\TaskWrite();
+        $newTask = new OpenAPI\Client\Model\Task();
 
         $newTask->setText($_POST['text']);
         $newTask->setDone(0);
