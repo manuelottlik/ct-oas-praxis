@@ -30,7 +30,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TaskWrite"
+              $ref: "#/components/schemas/Task"
       responses:
         "201":
           description: Null response
@@ -74,7 +74,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/TaskWrite"
+              $ref: "#/components/schemas/Task"
       responses:
         "201":
           description: Expected response to a valid request
@@ -104,18 +104,12 @@ components:
       type: object
       required:
         - id
-      allOf:
-        - type: object
-          properties:
-            id:
-              type: integer
-        - $ref: "#/components/schemas/TaskWrite"
-    TaskWrite:
-      type: object
-      required:
         - text
         - done
       properties:
+        id:
+          type: integer
+          readOnly: true
         text:
           type: string
           minLength: 2
@@ -126,14 +120,3 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Task"
-    Error:
-      type: object
-      required:
-        - error
-        - code
-      properties:
-        code:
-          type: integer
-          format: int32
-        error:
-          type: string
