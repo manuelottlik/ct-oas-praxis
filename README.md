@@ -1,6 +1,6 @@
 # ct-oas-praxis
 
-Beispielprojekt zum Artikel "Guck mal Mama, ohne Hände!" aus c't 2020, Heft XX.
+Beispielprojekt zum Artikel "REST-APIs aus der Konserve" aus c't 2020, Heft 25.
 
 | Thema                                            | Ordner                                                                                            |
 | ------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
